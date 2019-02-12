@@ -1,0 +1,69 @@
+{
+  "name": "@log4js2/sns-appender",
+  "version": "1.0.0-alpha.1",
+  "description": "Appends logs to AWS simple notification service",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:es5": "webpack --progress --colors --mode production",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "test": "jest",
+    "posttest": "codecov -f coverage/*.json"
+  },
+  "author": {
+    "name": "Robin Schultz",
+    "email": "robin@anigenero.com",
+    "url": "http://anigenero.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/log4js2/sns-appender.git"
+  },
+  "homepage": "https://github.com/log4js2/sns-appender#readme",
+  "license": "MIT",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index",
+  "keywords": [
+    "log4js2",
+    "logging",
+    "sns",
+    "aws"
+  ],
+  "bugs": {
+    "url": "https://github.com/log4js2/sns-appender/issues"
+  },
+  "devDependencies": {
+    "@log4js2/core": "^2.0.6",
+    "@types/node": "^11.9.0",
+    "codecov": "^3.1.0",
+    "jest": "^24.1.0",
+    "jest-cli": "^24.1.0",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.1",
+    "tslint-sonarts": "^1.9.0",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.401.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ],
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/dist/",
+      "/node_modules/"
+    ],
+    "testMatch": [
+      "**/__tests__/*.spec.(t|j)s"
+    ],
+    "transform": {
+      "^.+\\.(t|j)s?": "ts-jest"
+    }
+  }
+}
