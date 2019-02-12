@@ -3,7 +3,7 @@ An appender for [@log4js2/core](https://github.com/log4js2) that sends log event
 
 [![Build Status](https://travis-ci.org/log4js2/sns-appender.svg?branch=master)](https://travis-ci.org/log4js2/sns-appender)
 [![codecov](https://codecov.io/gh/log4js2/sns-appender/branch/master/graph/badge.svg)](https://codecov.io/gh/log4js2/sns-appender)
-[![dependencies](https://david-dm.org/log4js2/sns-appender.svg)](https://david-dm.org/anigenero/log4js2/sns-appender)
+[![dependencies](https://david-dm.org/log4js2/sns-appender.svg)](https://david-dm.org/log4js2/sns-appender)
 
 ## Installation
 
