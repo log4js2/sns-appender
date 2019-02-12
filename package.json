@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@log4js2/core": "^2.0.6",
+    "@types/jest": "^24.0.1",
     "@types/node": "^11.9.0",
     "codecov": "^3.1.0",
     "jest": "^24.1.0",
