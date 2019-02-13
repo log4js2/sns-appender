@@ -1,5 +1,4 @@
 import { Appender, ILogEvent, LogAppender } from '@log4js2/core';
-import { protocol } from 'aws-sdk/clients/sns';
 import { ISNSAppenderConfig, Protocol } from './appender.config';
 
 const AWS = require('aws-sdk');
@@ -75,12 +74,12 @@ export default class SNSAppender extends LogAppender<ISNSAppenderConfig> {
                 ...group,
                 [protocol]: this._formatProtocol(current, runningQueue, protocol)
             }), {
-                'default': this._formatProtocol(current, runningQueue)
+                default: this._formatProtocol(current, runningQueue)
             });
 
         } else {
             return {
-                'default': this._formatProtocol(current, runningQueue),
+                default: this._formatProtocol(current, runningQueue),
                 [this._config.protocol]: this._formatProtocol(current, runningQueue, this._config.protocol)
             };
         }
