@@ -1,5 +1,6 @@
 import { Appender, ILogEvent, LogAppender } from '@log4js2/core';
-import { ISNSAppenderConfig } from './appender.config';
+import { protocol } from 'aws-sdk/clients/sns';
+import { ISNSAppenderConfig, Protocol } from './appender.config';
 
 const AWS = require('aws-sdk');
 
@@ -52,18 +53,13 @@ export default class SNSAppender extends LogAppender<ISNSAppenderConfig> {
 
     private async _appendToSNSTopic(current: ILogEvent, runningQueue: ILogEvent[]) {
 
-        const output: ISNSRecord = {
-            ...this._baseOutput,
-            log: runningQueue.map((log) => this.format(log)).join('\n'),
-            raw: JSON.stringify(current)
-        };
-
         const {topicArn: TopicArn} = this._config;
 
         new AWS.SNS({
             apiVersion: '2010-03-31'
         }).publish({
-            Message: JSON.stringify(output),
+            MessageStructure: 'json',
+            Message: JSON.stringify(this._getMessage(current, runningQueue)),
             TopicArn
         }).promise().catch((err: any) => {
             console.error(`Could not publish to SNS topic: ${TopicArn}`, err);
@@ -71,4 +67,48 @@ export default class SNSAppender extends LogAppender<ISNSAppenderConfig> {
 
     }
 
+    private _getMessage(current: ILogEvent, runningQueue: ILogEvent[]): { [key in Protocol | 'default']?: string } {
+
+        if (this._config.protocol instanceof Array) {
+
+            return this._config.protocol.reduce((group, protocol) => ({
+                ...group,
+                [protocol]: this._formatProtocol(current, runningQueue, protocol)
+            }), {
+                'default': this._formatProtocol(current, runningQueue)
+            });
+
+        } else {
+            return {
+                'default': this._formatProtocol(current, runningQueue),
+                [this._config.protocol]: this._formatProtocol(current, runningQueue, this._config.protocol)
+            };
+        }
+
+    }
+
+    private _formatProtocol(current: ILogEvent, runningQueue: ILogEvent[], protocol?: Protocol) {
+        switch (protocol) {
+
+            case 'email':
+            case 'sms': {
+                return `${this._config.application} log event\n\n${runningQueue.map((log) => this.format(log)).join('\n')}`;
+            }
+
+            case 'application':
+            case 'email-json':
+            case 'http':
+            case 'https':
+            case 'lambda':
+            case 'sqs':
+            default: {
+                return JSON.stringify({
+                    ...this._baseOutput,
+                    log: runningQueue.map((log) => this.format(log)).join('\n'),
+                    raw: JSON.stringify(current)
+                } as ISNSRecord);
+            }
+
+        }
+    }
 }

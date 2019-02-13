@@ -27,6 +27,7 @@ configure({
         level: LogLevel.FATAL,
         config: {
             application: 'MyApp', // optional
+            protocol: ['email', 'sms'],
             region: 'us-east-1',
             topicArn: 'arn:aws:sns:us-east-1:123456789012:errors'
         }
@@ -39,10 +40,16 @@ pollute your stream with unimportant logs. Use filters and logging levels to ens
 
 ## Handling the SNS
 
+### SNS Subscriptions
+The `SNSAppender` configuration object allows you to configure one or multiple protocols. See the
+[SNS subscribe documentation](https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html) for which protocols can be used.
+
+### Handling raw JSON
 The SNS record contains a `log` field, which contains the last five logs, including the one that caused the SNS appender to trigger. It also contains a `raw` field with the unformatted log event (for easier parsing).
 
 ```json
 {
+  "application": "MyApplication",
   "log": "2019-02-12 12:55:32.000 [INFO] Doing something \n ...",
   "raw": {
     "level": 100,
