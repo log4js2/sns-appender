@@ -26,6 +26,7 @@ configure({
         appender: SNSAppender,
         level: LogLevel.FATAL,
         config: {
+            application: 'MyApp', // optional
             region: 'us-east-1',
             topicArn: 'arn:aws:sns:us-east-1:123456789012:errors'
         }
