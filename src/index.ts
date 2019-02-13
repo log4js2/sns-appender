@@ -1,5 +1,5 @@
-import {Appender, ILogEvent, LogAppender} from "@log4js2/core";
-import {ISNSAppenderConfig} from "./appender.config";
+import { Appender, ILogEvent, LogAppender } from '@log4js2/core';
+import { ISNSAppenderConfig } from './appender.config';
 
 const AWS = require('aws-sdk');
 
@@ -44,7 +44,7 @@ export default class SNSAppender extends LogAppender<ISNSAppenderConfig> {
         ].slice(0, 5);
 
         if (logEvent.level <= this.getLogLevel()) {
-            this._appendToSNSTopic(logEvent, this._runningQueue.slice());
+            this._appendToSNSTopic(logEvent, this._runningQueue.slice().reverse());
             this._runningQueue = [];
         }
 
@@ -54,7 +54,7 @@ export default class SNSAppender extends LogAppender<ISNSAppenderConfig> {
 
         const output: ISNSRecord = {
             ...this._baseOutput,
-            log: runningQueue.reverse().map((log) => this.format(log)).join('\n'),
+            log: runningQueue.map((log) => this.format(log)).join('\n'),
             raw: JSON.stringify(current)
         };
 
@@ -67,7 +67,7 @@ export default class SNSAppender extends LogAppender<ISNSAppenderConfig> {
             TopicArn
         }).promise().catch((err: any) => {
             console.error(`Could not publish to SNS topic: ${TopicArn}`, err);
-        })
+        });
 
     }
 
