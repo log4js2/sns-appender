@@ -45,7 +45,7 @@ The `SNSAppender` configuration object allows you to configure one or multiple p
 [SNS subscribe documentation](https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html) for which protocols can be used.
 
 ### Handling raw JSON
-The SNS record contains a `log` field, which contains the last five logs, including the one that caused the SNS appender to trigger. It also contains a `raw` field with the unformatted log event (for easier parsing).
+The SNS record contains a `log` field with the log that caused the SNS appender to trigger. It also contains a `raw` field with the unformatted log event (for easier parsing).
 
 ```json
 {

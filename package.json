@@ -1,11 +1,10 @@
 {
   "name": "@log4js2/sns-appender",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0",
   "description": "Appends logs to AWS simple notification service",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "build:es5": "webpack --progress --colors --mode production",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
     "posttest": "codecov -f coverage/*.json"
@@ -33,19 +32,19 @@
     "url": "https://github.com/log4js2/sns-appender/issues"
   },
   "devDependencies": {
-    "@log4js2/core": "^2.0.6",
-    "@types/jest": "^24.0.1",
-    "@types/node": "^11.9.0",
-    "codecov": "^3.1.0",
-    "jest": "^24.1.0",
-    "jest-cli": "^24.1.0",
+    "@log4js2/core": "^2.0.8",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^11.13.18",
+    "codecov": "^3.5.0",
+    "jest": "^24.8.0",
+    "jest-cli": "^24.8.0",
     "ts-jest": "^23.10.5",
-    "tslint": "^5.12.1",
+    "tslint": "^5.18.0",
     "tslint-sonarts": "^1.9.0",
-    "typescript": "^3.3.3"
+    "typescript": "^3.5.3"
   },
   "dependencies": {
-    "aws-sdk": "^2.401.0"
+    "aws-sdk": "^2.499.0"
   },
   "jest": {
     "moduleFileExtensions": [
